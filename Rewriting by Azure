@@ -9,7 +9,8 @@ api_key = "d66170e67ba548c4b6bc39b09bc00de5"
 
 def add_message(role, content):
     message_history.append({"role": role, "content": content})
-        
+    
+    
 def check_keywords(text):
     keywords = ["review", "here's", "style", "conversational", "mistakes"]
     first_150 = text[:150]
@@ -41,13 +42,16 @@ def get_response(prompt):
     add_message("assistant", ai_reply)
     return ai_reply
 
+
 helpovac = 'Thank you! Can you please send me just the text of the review, removing the explanatory text where you describe it?'
+
+
 
 lsi = comje['review_body'].values.tolist()
 rewir = []
 rewrited_titles = []
+kolej = []
 
-                        
 for p in lsi:
     try:
         prompt = prompt_rev+p #беремо наш базовий промпт і додаємо тіло коментаря 
@@ -63,11 +67,20 @@ for p in lsi:
         else:
             ches = 0
             kj = kj
+            kol = 1 #зазначаємо що успіх на першій ітерації.
         
         if ches == 1:
             N = check_keywords(kj) #повторна перевірка
-            get2 = get_response("There is explanatory text anyway. Please give me only review text.")
-            kj = get2
+            
+            if N == 1:
+                get2 = get_response("There is explanatory text anyway. Please give me only review text.")
+                kj = get2
+                kol = 3 #зазначаємо що успіх на третій ітерації.
+            else:
+                kj = kj
+                kol = 2 #зазначаємо що успіх на другій ітерації.
+            
+            
         else:
             kj = kj
     
@@ -75,8 +88,11 @@ for p in lsi:
     
         rewir.append(kj)
     
-        first_five_words = ' '.join(kj.split()[:5])
+        #first_five_words = ' '.join(kj.split()[:5])
+        first_five_words = get_response("Great, thank you! Now write a catchy title for this reviews, that would be no more than 7 words long. Make sure that your reply only has this title, and no extra words.")
         rewrited_titles.append(first_five_words)
+        
+        kolej.append(kol)
         print(1)
         time.sleep(20)
     
@@ -86,6 +102,10 @@ for p in lsi:
         rewir.append(kj)
         first_five_words = ''
         rewrited_titles.append(first_five_words)
+        kol = ''
+        kolej.append(kol)
         
+comje['con'] = rewir
 comje['rewr_comment'] = rewir
 comje['title'] = rewrited_titles
+comje['kolej'] = kolej

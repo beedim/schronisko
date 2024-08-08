@@ -1,0 +1,91 @@
+#azure chatgpt
+
+import requests
+import json
+import time
+
+endpoint = "https://mz4-gpt.openai.azure.com/openai/deployments/mz4/chat/completions?api-version=2024-02-15-preview"
+api_key = "d66170e67ba548c4b6bc39b09bc00de5"
+
+def add_message(role, content):
+    message_history.append({"role": role, "content": content})
+        
+def check_keywords(text):
+    keywords = ["review", "here's", "style", "conversational", "mistakes"]
+    first_150 = text[:150]
+    first_150_chars_lower = first_150.lower()
+
+    keyword_count = sum(word in first_150_chars_lower for word in keywords)
+
+    N = 1 if keyword_count >= 2 else 0
+    return N
+
+def get_response(prompt):
+    add_message("user", prompt)
+    
+    payload = {
+        "messages": message_history,
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "max_tokens": 800
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "api-key": api_key
+    }
+
+    response = requests.post(endpoint, headers=headers, data=json.dumps(payload))
+    response_data = response.json()
+    ai_reply = response_data['choices'][0]['message']['content'].strip()
+    add_message("assistant", ai_reply)
+    return ai_reply
+
+helpovac = 'Thank you! Can you please send me just the text of the review, removing the explanatory text where you describe it?'
+
+lsi = comje['review_body'].values.tolist()
+rewir = []
+rewrited_titles = []
+
+                        
+for p in lsi:
+    try:
+        prompt = prompt_rev+p #беремо наш базовий промпт і додаємо тіло коментаря 
+        message_history = [] #зкидуємо історію повідомлень
+    
+        #kj = get_per_response(prompt)
+        kj = get_response(prompt)  #отримали першу відповідь
+        N = check_keywords(kj) #отримали значення параметра що показує чи є у відповіді зайві слова
+        if N == 1:
+            get = get_response(helpovac) #у випадку якщо перша відповідь непоправильна - просимо переписати.
+            ches = 1
+            kj = get
+        else:
+            ches = 0
+            kj = kj
+        
+        if ches == 1:
+            N = check_keywords(kj) #повторна перевірка
+            get2 = get_response("There is explanatory text anyway. Please give me only review text.")
+            kj = get2
+        else:
+            kj = kj
+    
+        kj = kj.strip('"') #прибираємо " на початку і в кінці рядка якщо такі є.
+    
+        rewir.append(kj)
+    
+        first_five_words = ' '.join(kj.split()[:5])
+        rewrited_titles.append(first_five_words)
+        print(1)
+        time.sleep(20)
+    
+    except:
+        
+        kj = ''
+        rewir.append(kj)
+        first_five_words = ''
+        rewrited_titles.append(first_five_words)
+        
+comje['rewr_comment'] = rewir
+comje['title'] = rewrited_titles

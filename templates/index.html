@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Checker</title>
+</head>
+<body>
+    <h1>Domain Checker</h1>
+    <form method="POST" action="/process">
+        <label for="domains">Enter domains (one per line):</label><br>
+        <textarea id="domains" name="domains" rows="10" cols="50"></textarea><br>
+        <label for="action">Select Action:</label><br>
+        <select id="action" name="action">
+            <option value="get_ahrefs_domains">Get Domains from Ahrefs</option>
+            <option value="check_spam">Check for Spam on MXToolbox</option>
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

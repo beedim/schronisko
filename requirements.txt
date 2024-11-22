@@ -4,3 +4,6 @@ requests
 selenium
 webdriver-manager
 beautifulsoup4
+PyMySQL
+sshtunnel
+xlsxwriter

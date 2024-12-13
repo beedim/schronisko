@@ -7,3 +7,7 @@ beautifulsoup4
 PyMySQL
 sshtunnel
 xlsxwriter
+gspread
+oauth2client
+sshtunnel
+gunicorn

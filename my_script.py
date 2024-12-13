@@ -14,7 +14,7 @@ app = Flask(__name__)
 ss = {'A': ['bee_dmy', 'bee_dmy' ], 'B': ['one', 'two']}
 data = pd.DataFrame(ss)
 
-ss2 = {'B': ['one', 'two' ], 'B': ["sql = 'select * from oauth_clients';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)", "sql = 'select * from roles';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)"]}
+ss2 = {'B': ['one', 'two' ], 'C': ["sql = 'select * from oauth_clients';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)", "sql = 'select * from roles';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)"]}
 data2 = pd.DataFrame(ss2)
                                    
 ss3 = {'A': ['bee_dmy'  ], 'B': [2]}

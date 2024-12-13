@@ -11,29 +11,14 @@ import pymysql
 app = Flask(__name__)
 
 
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-credentials = ServiceAccountCredentials.from_json_keyfile_name({
-  "type": "service_account",
-  "project_id": "pythontest-349818",
-  "private_key_id": "22361a42675ad9a7eb77942430753cfb40950d5d",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDavEJZY0bj8jsr\nC/v+qJ9e79pFYL0kVsxKAn8InUCMn3VxGN1IBSUYye/1+z3l1EOocgtBJ5Qohu1f\naYvI+HyyrRj89G6gMVOa6SNYf9CMN0kibYU3JMKKx4dpXJK3mIOu6ALs2ytnP7w8\nz2b4OWQmxd6Zm0kcnDdvA6sacBY6VfxpsfTW5BW3ZhlIVSAu9R6+DPCoFH9LkSIG\ntLYDvT3ZcpFl84FkXfcNiY/W8HdR/pZHT5lcc67mYtBcm8e+Jai2VCMCSLUSuPr8\nh1plsrDzLMFHDgLW4+8OUXAXqPEN3Ax2W9J7/StNslEhTy4j6pPjkPc5ctCm0a7Q\nB8l9D9hPAgMBAAECggEALk3TF9whyihhqSOw1UB5+F17DdvEPniXZ4VuwfKUExDA\nilASq+fW6g/5mc91U31jUznNMx4/SXMCtgOAYWtk7mghVY8jCgtXIQCAiIAKNFyR\nwVWA8WL5QeqqOj4sGuyQ18pqsBxXbFR8Mz1OlXaEwoZ5sHfEeueA/qG+q2qV8gQU\njFjBCNCJcIOViouw+ducbZzAMydAjpKV76i8IfIkr5E/DmTjStGX/jb0nlNylWwq\nH2++lQSeukynnZElVGIycTwpQ7Qw0ZjZD16F24Fk9AzlglcEIes3bFMVa3+t0FbL\nrvVVofam5OdWhvgY3VddweOAvEcVVRh88R25qGRcMQKBgQDhdDXnLJuvuxTO7i0O\ntnw2SYTdJf6AKtho4Sgyk3WuZagYUU9LVLLPKVtR5RHBb6ScuThNtz2kw24HQQ0F\ngYmTKw0TVvCRer5BIMbsPzN8YtbimvioOkv+3QQ9G71PqVXMiSn5aaEknqo154g2\nzG2ndmhLqeQzL0MEkyLqnL+oPwKBgQD4XwSMXhwbmlWpo2F5MN2wpEPEyrJ6in9h\n0OLKq8GCmKai06JvsZAujAZn/iO+JOCOkN7bvFQJ6qaV71c8u5b3gTW5oyScM+ih\nZ6gWWmYjcOLRVgCWE24XTUHDa0d0CUZpvovuXD8+MAmjoTXJEGxhDOWaOo8qqW2n\nIsyXY6hL8QKBgBRmWYJDbQrnmKhosLcGGBMpb9Y6295pAg/rX6HD6gAPvrgEk3Iz\nhcJs8ZBlc8fW/EQaFlgh3ngMHuaVIkJ/SB2C5bn8QeRIAPMPrjAuP9BfeSYj85/1\nNm8nPHzzB5wvrE3Hk3636hbQLIKYIqEiukFO230NMFLZUe0WCzDDYiwtAoGAYCKv\nKQHYUVrYo3PI69bdSF0cmhR3JvVqvtrSne4DVeBuR4IxUphhHZM3e5MkFJpDjQtI\nJ7dqs/fuiQR+ONTHZ3/M4tDh/9Ab0DXGGvjcpgUw1iQ6z9wvdbeCp/hjTOe2KIIH\nubhdBl4jrQFeRzgjKyGJ0buu5K118waGOGbropECgYAe9JjoEXdMSwIvzzy/j0kG\n60EY4xedLKtOvhc3ktmy0IqcZu/foVm2p+geFbD2cvbeILg+Gmq9w6DCr+cI62Oi\ngc/bmbxPdl5cM7HjV5Fp0F6A3dqAhsDeqs2ZNx7cxn0qf25KOJS6ud8f4HmC8TLC\nkNQy1UpAnc8c9GSoCtEAkA==\n-----END PRIVATE KEY-----\n",
-  "client_email": "vidpravkatest@pythontest-349818.iam.gserviceaccount.com",
-  "client_id": "113201679112522439937",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vidpravkatest%40pythontest-349818.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}, scope)
-client = gspread.authorize(credentials)
-sheet = client.open_by_key("1u7GAOMMJxajJF3v81E2Vn327UF6_7Q-Pu6lBnOfZwtc").worksheet("1")
-data = pd.DataFrame(sheet.get_all_records())
+ss = {'A': ['bee_dmy', 'bee_dmy' ], 'B': ['one', 'two']}
+data = pd.DataFrame(ss)
 
-sheet2 = client.open_by_key("1u7GAOMMJxajJF3v81E2Vn327UF6_7Q-Pu6lBnOfZwtc").worksheet("2")
-data2 = pd.DataFrame(sheet2.get_all_records())
-
-sheet3 = client.open_by_key("1u7GAOMMJxajJF3v81E2Vn327UF6_7Q-Pu6lBnOfZwtc").worksheet("3")
-data3 = pd.DataFrame(sheet3.get_all_records())
+ss2 = {'B': ['one', 'two' ], 'B': ["sql = 'select * from oauth_clients';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)", "sql = 'select * from roles';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)"]}
+data2 = pd.DataFrame(ss2)
+                                   
+ss3 = {'A': ['bee_dmy'  ], 'B': [2]}
+data3 = pd.DataFrame(ss3)    
 
 
 SQL_HOST = ('176.74.219.82', 55567)

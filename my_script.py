@@ -97,7 +97,18 @@ def run_direct_algorithm():
         # Save the result as an Excel file
         file_path = f"{username}_result.xlsx"
         k1.to_excel(file_path, index=False)
-        return jsonify({"message": f"Забери результат у файлі {file_path}."})
+
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+              k1.to_excel(writer, index=False, sheet_name="Results")
+        output.seek(0)
+            # Send the file as a download
+        return send_file(
+                output,
+                as_attachment=True,
+                download_name=file_path,
+                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -114,7 +125,20 @@ def run_custom():
         k1 = pd.read_sql_query(sql_query, connection)
         file_path = f"{username}_custom_query.xlsx"
         k1.to_excel(file_path, index=False)
-        return jsonify({"message": f"Забери результат у файлі {file_path}."})
+        
+
+
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+              k1.to_excel(writer, index=False, sheet_name="Results")
+        output.seek(0)
+            # Send the file as a download
+        return send_file(
+                output,
+                as_attachment=True,
+                download_name=file_path,
+                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

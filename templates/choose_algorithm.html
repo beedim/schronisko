@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обери алгоритм</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        label, h1 { font-size: 20px; margin-bottom: 10px; }
+        button { font-size: 16px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Обери бажану дію</h1>
+    <form action="/select_algorithm" method="post">
+        <input type="hidden" name="username" value="{{ username }}">
+        <label><input type="radio" name="algorithm_type" value="direct_algorithm" required> Direct Algorithm</label><br>
+        <label><input type="radio" name="algorithm_type" value="custom_function" required> Custom Function</label><br><br>
+        <button type="submit">Перейди далі</button>
+    </form>
+</body>
+</html>

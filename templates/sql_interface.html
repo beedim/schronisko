@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom SQL Query</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        textarea, button { font-size: 16px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Подай тут свій запит до MySQL</h1>
+    <form action="/run_custom" method="post">
+        <input type="hidden" name="username" value="{{ username }}">
+        <label for="query">SQL Query:</label><br>
+        <textarea name="query" id="query" rows="10" cols="50" required></textarea><br><br>
+        <button type="submit">Запуск</button>
+    </form>
+    <p>Подивитися усі таблиці: <code>SHOW TABLES;</code></p>
+    <p>Подивитися усі поля таблиці: <code>DESCRIBE table_name;</code></p>
+</body>
+</html>

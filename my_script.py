@@ -50,76 +50,7 @@ user_state = {}
 def index():
     return render_template('index.html')  # HTML form to enter username
 
-@app.route('/process_username', methods=['POST'])
-def process_username():
-    username = request.form.get('username').strip()
-    if not username:
-        return jsonify({"error": "Введіть ім'я користувача."}), 400
 
-    filtered_values = data3[data3["A"] == username]["B"].tolist()
-    if not filtered_values:
-        return jsonify({"error": "Користувача не знайдено."}), 404
-
-    user_state[username] = {
-        "username": username,
-        "filtered_values": filtered_values[0],
-        "algorithm_type": None
-    }
-
-    return render_template('choose_algorithm.html', username=username)  # Page to choose algorithm
-
-@app.route('/select_algorithm', methods=['POST'])
-def select_algorithm():
-    username = request.form.get('username')
-    algorithm_type = request.form.get('algorithm_type')
-
-    if username not in user_state:
-        return jsonify({"error": "Invalid user session."}), 400
-
-    user_state[username]["algorithm_type"] = algorithm_type
-
-    if algorithm_type == "direct_algorithm":
-        filtered_values2 = data[data["A"] == username]["B"].tolist()
-        return render_template('select_package.html', username=username, options=filtered_values2)  # Page to select package
-    elif algorithm_type == "custom_function":
-        return render_template('sql_interface.html', username=username)  # Page for SQL query
-    else:
-        return jsonify({"error": "Invalid algorithm type."}), 400
-
-@app.route('/run_direct_algorithm', methods=['POST'])
-def run_direct_algorithm():
-    username = request.form.get('username')
-    selected_value = request.form.get('selected_value')
-
-    if username not in user_state:
-        return jsonify({"error": "Invalid user session."}), 400
-
-    try:
-        filtered_valuess = data2[data2["B"] == selected_value]["C"].tolist()[0]
-        exec(filtered_valuess, globals())
-        # Save the result as an Excel file
-        file_path = f"{username}_result.xlsx"
-        k1.to_excel(file_path, index=False)
-        return jsonify({"message": f"Забери результат у файлі {file_path}."})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/run_custom', methods=['POST'])
-def run_custom():
-    username = request.form.get('username')
-    sql_query = request.form.get('query').strip()
-
-    if user_state[username]["filtered_values"] != 2:
-        return jsonify({"error": "Не маєш прав."}), 403
-
-    try:
-        Cursor.execute(sql_query)
-        k1 = pd.read_sql_query(sql_query, connection)
-        file_path = f"{username}_custom_query.xlsx"
-        k1.to_excel(file_path, index=False)
-        return jsonify({"message": f"Забери результат у файлі {file_path}."})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

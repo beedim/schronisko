@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обери пакет виконання</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        select, button { font-size: 16px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Обери пакет виконання</h1>
+    <form action="/run_direct_algorithm" method="post">
+        <input type="hidden" name="username" value="{{ username }}">
+        <label for="selected_value">Пакет:</label><br>
+        <select name="selected_value" id="selected_value" required>
+            {% for option in options %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Запуск</button>
+    </form>
+</body>
+</html>

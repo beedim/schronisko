@@ -50,7 +50,7 @@ user_state = {}
 def index():
     return render_template('index.html')  # HTML form to enter username
 
-#@app.route('/process_username', methods=['POST'])
+@app.route('/process_username', methods=['POST'])
 def process_username():
     username = request.form.get('username').strip()
     if not username:

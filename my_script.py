@@ -15,7 +15,7 @@ app = Flask(__name__)
 ss = {'A': ['bee_dmy', 'bee_dmy' ], 'B': ['one', 'two']}
 data = pd.DataFrame(ss)
 
-ss2 = {'B': ['one', 'two' ], 'C': ["sql = 'select * from oauth_clients';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)", "scripts/fiction.txt"]}
+ss2 = {'B': ['one', 'two' ], 'C': ["scripts/one.txt", "scripts/fiction.txt"]}
 data2 = pd.DataFrame(ss2)
                                    
 ss3 = {'A': ['bee_dmy'  ], 'B': [2]}
@@ -93,16 +93,16 @@ def run_direct_algorithm():
     pairs = qq.split(';')
 
     for pair in pairs:
-        var_name, var_value = pair.strip().split('=')
+        var_name, var_val = pair.strip().split('=')
         var_name = var_name.strip() 
-        var_value = var_value.strip()
+        var_val = var_val.strip()
 
-    if var_value.isdigit():  
-        var_value = int(var_value)
-    elif var_value.startswith("'") and var_value.endswith("'"):
-        var_value = var_value[1:-1]
+    if var_val.isdigit():  
+        var_val = int(var_val)
+    elif var_val.startswith("'") and var_val.endswith("'"):
+        var_val = var_val[1:-1]
 
-    globals()[var_name] = var_value
+    globals()[var_name] = var_val
 
 
   

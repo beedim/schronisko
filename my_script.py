@@ -117,7 +117,7 @@ def run_direct_algorithm():
 def run_custom():
     username = request.form.get('username')
     sql_query = request.form.get('query').strip()
-    base_name = request.form.get('selected_base').strip()
+    base_name = request.form.get('selected_base')
 
     if user_state[username]["filtered_values"] != 2:
         return jsonify({"error": "Не маєш прав."}), 403
@@ -125,24 +125,24 @@ def run_custom():
     try:
         if base_name == 'MySQL':
           
-          Cursor.execute(sql_query)
-          k1 = pd.read_sql_query(sql_query, connection)
-          file_path = f"{username}_custom_query.xlsx"
-          k1.to_excel(file_path, index=False)
+            Cursor.execute(sql_query)
+            k1 = pd.read_sql_query(sql_query, connection)
+            file_path = f"{username}_custom_query.xlsx"
+            k1.to_excel(file_path, index=False)
         else:
-          from clickhouse_driver import Client
-          host = '5.43.226.89'
-          port = 9000
-          database='statistic'
-          client = Client(host, port, database)
+            from clickhouse_driver import Client
+            host = '5.43.226.89'
+            port = 9000
+            database='statistic'
+            client = Client(host, port, database)
           
-          result,columns = client.execute(sql_query, with_column_types = True)
-          col = []
-          for desc in columns:
-              col.append(desc[0])
-          k1 = pd.DataFrame(result, columns = col)
-          file_path = f"{username}_custom_query.xlsx"
-          k1.to_excel(file_path, index=False)
+            result,columns = client.execute(sql_query, with_column_types = True)
+            col = []
+            for desc in columns:
+                col.append(desc[0])
+            k1 = pd.DataFrame(result, columns = col)
+            file_path = f"{username}_custom_query.xlsx"
+            k1.to_excel(file_path, index=False)
         
 
 

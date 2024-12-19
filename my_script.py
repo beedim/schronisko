@@ -149,7 +149,7 @@ def run_custom():
         return jsonify({"error": "Не маєш прав."}), 403
 
     try:
-        if base_name == 'MySQL':
+        if base_name == 'mysql':
           
             Cursor.execute(sql_query)
             k1 = pd.read_sql_query(sql_query, connection)

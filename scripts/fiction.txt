@@ -1,3 +1,14 @@
-sql = f'select * from oauth_clients where date(created_at) >= {ff}';
-Cursor.execute(sql);
-k1 = pd.read_sql_query(sql, connection)
+from clickhouse_driver import Client
+host = '5.43.226.89'
+port = 9000
+database='statistic'
+client = Client(host, port, database)
+
+
+sql = f"select * from order_events where date(created_at) >= '{ff}' limit 10";
+result,columns = client.execute(sql, with_column_types = True)
+col = []
+for desc in columns:
+    col.append(desc[0])
+import pandas as pd
+k1 = pd.DataFrame(result, columns = col)

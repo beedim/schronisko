@@ -15,7 +15,7 @@ app = Flask(__name__)
 ss = {'A': ['bee_dmy', 'bee_dmy' ], 'B': ['one', 'two']}
 data = pd.DataFrame(ss)
 
-ss2 = {'B': ['one', 'two' ], 'C': ["sql = 'select * from oauth_clients';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)", "sql = 'select * from roles';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)"]}
+ss2 = {'B': ['one', 'two' ], 'C': ["sql = 'select * from oauth_clients';Cursor.execute(sql);k1 = pd.read_sql_query(sql, connection)", "scripts/fiction.txt"]}
 data2 = pd.DataFrame(ss2)
                                    
 ss3 = {'A': ['bee_dmy'  ], 'B': [2]}
@@ -88,13 +88,38 @@ def select_algorithm():
 def run_direct_algorithm():
     username = request.form.get('username')
     selected_value = request.form.get('selected_value')
+    qq = request.form.get('var_value')
+
+    pairs = qq.split(';')
+
+    for pair in pairs:
+        var_name, var_value = pair.strip().split('=')
+        var_name = var_name.strip() 
+        var_value = var_value.strip()
+
+    if var_value.isdigit():  
+        var_value = int(var_value)
+    elif var_value.startswith("'") and var_value.endswith("'"):
+        var_value = var_value[1:-1]
+
+    globals()[var_name] = var_value
+
+
+  
 
     if username not in user_state:
         return jsonify({"error": "Invalid user session."}), 400
 
     try:
         filtered_valuess = data2[data2["B"] == selected_value]["C"].tolist()[0]
-        exec(filtered_valuess, globals())
+
+
+        filename = filtered_valuess
+        with open(filename, 'r') as file:
+            script_content = file.read()
+        exec(script_content,globals())
+      
+        #exec(filtered_valuess, globals())
         # Save the result as an Excel file
         file_path = f"{username}_result.xlsx"
         k1.to_excel(file_path, index=False)

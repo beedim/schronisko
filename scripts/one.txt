@@ -1,0 +1,3 @@
+sql = 'select * from oauth_clients';
+Cursor.execute(sql);
+k1 = pd.read_sql_query(sql, connection)

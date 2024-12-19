@@ -11,3 +11,4 @@ gspread
 oauth2client
 sshtunnel
 gunicorn
+clickhouse-driver

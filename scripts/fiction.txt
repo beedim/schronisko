@@ -1,0 +1,3 @@
+sql = f'select * from oauth_clients where date(created_at) >= {ff}';
+Cursor.execute(sql);
+k1 = pd.read_sql_query(sql, connection)

@@ -89,20 +89,21 @@ def run_direct_algorithm():
     username = request.form.get('username')
     selected_value = request.form.get('selected_value')
     qq = request.form.get('var_value')
+  
+    if qq and qq.strip():
+      pairs = qq.split(';')
 
-    pairs = qq.split(';')
+      for pair in pairs:
+          var_name, var_val = pair.strip().split('=')
+          var_name = var_name.strip() 
+          var_val = var_val.strip()
 
-    for pair in pairs:
-        var_name, var_val = pair.strip().split('=')
-        var_name = var_name.strip() 
-        var_val = var_val.strip()
+      if var_val.isdigit():  
+          var_val = int(var_val)
+      elif var_val.startswith("'") and var_val.endswith("'"):
+          var_val = var_val[1:-1]
 
-    if var_val.isdigit():  
-        var_val = int(var_val)
-    elif var_val.startswith("'") and var_val.endswith("'"):
-        var_val = var_val[1:-1]
-
-    globals()[var_name] = var_val
+      globals()[var_name] = var_val
 
 
   

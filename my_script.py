@@ -89,7 +89,7 @@ def run_direct_algorithm():
     username = request.form.get('username')
     selected_value = request.form.get('selected_value')
     qq = request.form.get('var_value')
-  
+    print(qq)
     if qq and qq.strip():
       pairs = qq.split(';')
 

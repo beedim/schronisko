@@ -10,19 +10,22 @@
     </style>
 </head>
 <body>
-    <h1>Подай тут свій запит до бази</h1>
+    <h1>Подай тут свій запит до бази🐷</h1>
     <form action="/run_custom" method="post">
         <input type="hidden" name="username" value="{{ username }}">
         <label for="query">SQL Query:</label><br>
         <textarea name="query" id="query" rows="10" cols="50" required></textarea><br><br>
         <button type="submit">Запуск</button>
-    </form>
 
-    <label for="selected_base">Обери базу даних:</label><br>
-    <select name="selected_base" id="selected_base" required>
+
+        <label for="selected_base">Обери базу даних:</label><br>
+        <select name="selected_base" id="selected_base" required>
         <option value="mysql">MySQL</option>
         <option value="clickhouse">ClickHouse</option>
-    </select><br><br>
+        </select><br><br>
+    </form>
+
+
     
     <p>Подивитися усі таблиці: <code>SHOW TABLES;</code></p>
     <p>Подивитися усі поля таблиці: <code>DESCRIBE table_name;</code></p>

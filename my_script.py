@@ -98,12 +98,12 @@ def run_direct_algorithm():
           var_name = var_name.strip() 
           var_val = var_val.strip()
 
-      if var_val.isdigit():  
-          var_val = int(var_val)
-      elif var_val.startswith("'") and var_val.endswith("'"):
-          var_val = var_val[1:-1]
+          if var_val.isdigit():  
+              var_val = int(var_val)
+          elif var_val.startswith("'") and var_val.endswith("'"):
+              var_val = var_val[1:-1]
 
-      globals()[var_name] = var_val
+          globals()[var_name] = var_val
 
 
   

@@ -9,6 +9,12 @@
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
         label, h1 { font-size: 20px; margin-bottom: 10px; }
         input[type="text"], button { font-size: 16px; padding: 10px; }
+        .centered-image {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -18,5 +24,7 @@
         <input type="text" id="username" name="username" required><br><br>
         <button type="submit">Введіть</button>
     </form>
+
+     <img src="cats.png" alt="Image" class="centered-image" />
 </body>
 </html>

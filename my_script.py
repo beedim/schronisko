@@ -12,13 +12,13 @@ from io import BytesIO
 app = Flask(__name__)
 
 
-ss = {'A': ['bee_dmy', 'bee_dmy' ], 'B': ['one', 'two']}
+ss = {'A': ['bee_dmy', 'bee_dmy', 'alisia' ], 'B': ['one', 'two', 'wrtd_518']}
 data = pd.DataFrame(ss)
 
-ss2 = {'B': ['one', 'two' ], 'C': ["scripts/one.txt", "scripts/fiction.txt"]}
+ss2 = {'B': ['one', 'two', 'wrtd_518' ], 'C': ["scripts/one.txt", "scripts/fiction.txt", "scripts/wrtd_518.txt"]}
 data2 = pd.DataFrame(ss2)
                                    
-ss3 = {'A': ['bee_dmy'  ], 'B': [2]}
+ss3 = {'A': ['bee_dmy', 'alisia'  ], 'B': [2, 1]}
 data3 = pd.DataFrame(ss3)    
 
 

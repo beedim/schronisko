@@ -18,7 +18,7 @@ data = pd.DataFrame(ss)
 ss2 = {'B': ['one', 'two', 'wrtd_518' ], 'C': ["scripts/one.txt", "scripts/fiction.txt", "scripts/wrtd_518.txt"]}
 data2 = pd.DataFrame(ss2)
                                    
-ss3 = {'A': ['bee_dmy', 'alisia'  ], 'B': [2, 1]}
+ss3 = {'A': ['bee_dmy', 'alisia','molly'  ], 'B': [2, 1,2]}
 data3 = pd.DataFrame(ss3)    
 
 
